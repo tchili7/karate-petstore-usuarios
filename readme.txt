@@ -42,7 +42,7 @@ Pasos para ejecutar
    mvn -version
 
 2. Clonar el repositorio y entrar a la carpeta:
-   git clone <url del repositorio>
+   git clone https://github.com/tchili7/karate-petstore-usuarios.git
    cd karate-petstore-usuarios
 
 3. Ejecutar la prueba:
