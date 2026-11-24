@@ -1,0 +1,32 @@
+CONCLUSIONES - PRUEBAS DE API USUARIOS PETSTORE
+
+Fecha de ejecución: 24/11/2026
+Herramienta: Karate 1.5.2
+
+Resultado
+- Escenario: Crear, buscar, actualizar, buscar y eliminar un usuario
+- Estado: Exitoso (1 escenario ejecutado, 1 aprobado, 0 fallidos)
+- Duración: 3,7 segundos
+
+Resultados por caso
+- Crear usuario (POST /user): código 200, la respuesta devuelve el id del usuario creado.
+- Buscar usuario creado (GET /user/{username}): código 200, devuelve los mismos datos enviados.
+- Actualizar nombre y correo (PUT /user/{username}): código 200.
+- Buscar usuario actualizado (GET /user/{username}): código 200, con el nuevo nombre (Lucia) y el nuevo correo (lucia.perez@mail.com).
+- Eliminar usuario (DELETE /user/{username}): código 200, la respuesta devuelve el username eliminado.
+- Buscar usuario eliminado: código 404 con el mensaje "User not found".
+
+Hallazgos
+- Los 5 casos del flujo funcionaron correctamente y en el orden esperado.
+- La estructura de las respuestas coincide con la documentación de la API (modelos User y ApiResponse).
+- Las respuestas de crear, actualizar y eliminar no devuelven el usuario completo, sino un mensaje con código, tipo y un texto (el id o el username). Por eso los cambios se confirmaron haciendo una nueva búsqueda después de cada operación.
+- Después de eliminar el usuario, la API responde 404 "User not found", lo que confirma que el usuario ya no existe.
+
+Conclusiones
+- El servicio de usuarios de la API PetStore permite crear, consultar, actualizar y eliminar usuarios correctamente.
+- Karate permitió escribir las pruebas de forma clara, separando los datos de entrada (archivos JSON), las validaciones (match) y las variables, sin necesidad de código Java adicional.
+- Validar la estructura de las respuestas con esquemas ayuda a detectar cambios en la API aunque los valores sean correctos.
+
+Observaciones
+- La API de PetStore es pública y compartida, por lo que se genera un usuario único en cada ejecución (qa_user_<timestamp>) para no interferir con datos de otras personas.
+- Como es un servicio de demostración, puede tardar unos segundos en reflejar un usuario recién creado o actualizado. Por eso las búsquedas se reintentan hasta 5 veces cada 2 segundos, lo que hace la prueba más estable.
